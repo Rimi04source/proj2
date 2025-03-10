@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: githubvm
+    runs-on: [self-hosted, linux, x64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
