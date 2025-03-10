@@ -18,8 +18,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - run: |
-          sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} .
-          sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+          sudo docker build . -t gitpracacr.azurecr.io/pythonimage:${{ github.sha }}
+          sudo docker push gitpracacr.azurecr.io/pythonimage:${{ github.sha }}
 
   test:
     runs-on: ubuntu-latest
