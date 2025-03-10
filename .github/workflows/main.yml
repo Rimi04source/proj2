@@ -10,21 +10,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up Azure CLI
-        uses: azure/setup-azurecli@v1
         
-      - name: Log in to Azure using Azure CLI
-        run: |
-          az login
+      - uses: azure/docker-login@v2
+        with:
+          login-server: gitpracacr.azurecr.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - name: Log in to Azure Container Registry
-        run: |
-          az acr login --name gitpracacr.azurecr.io
-      
-      - name: Build, tag, and push image to ACR
-        run: |
-          docker build -t gitpracacr.azurecr.io/my-image:latest .
-          docker push gitpracacr.azurecr.io/my-image:latest
+      - run: |
+          docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME .
+          docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
 
   test:
     runs-on: ubuntu-latest
